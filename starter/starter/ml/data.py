@@ -45,16 +45,16 @@ def process_data(
     """
 
     if label is not None:
-        y = X[label]
-        X = X.drop([label], axis=1)
+        y = X.loc[:, label]
+        X = X.drop(columns=[label])
     else:
         y = np.array([])
 
-    X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
+    X_categorical = X.loc[:, categorical_features].values
+    X_continuous = X.drop(columns=categorical_features)
 
     if training is True:
-        encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
+        encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
         y = lb.fit_transform(y.values).ravel()

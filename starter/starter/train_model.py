@@ -2,12 +2,14 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from data import process_data
-from model import train_model
+from ml.data import process_data
+from ml.model import train_model
 from constants import DATA_PATH
 
 # Add code to load in the data.
-data = pd.read_csv(DATA_PATH / 'census.csv')
+data = pd.read_csv(DATA_PATH / 'census.csv', sep=',')
+data_columns = [col.replace(' ', '') for col in data.columns]
+data.columns = data_columns
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)
