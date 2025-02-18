@@ -1,10 +1,10 @@
 # Script to train machine learning model.
-import numpy as np
+import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from ml.data import process_data
 from ml.model import train_model
-from constants import DATA_PATH
+from constants import DATA_PATH, MODEL_PATH
 
 # Add code to load in the data.
 data = pd.read_csv(DATA_PATH / 'census.csv', sep=',')
@@ -35,4 +35,5 @@ X_test, y_test, _, _ = process_data(
 )
 
 # Train and save a model.
-train_model(X_train, y_train)
+model = train_model(X_train, y_train)
+joblib.dump(model, MODEL_PATH / 'model.joblib')

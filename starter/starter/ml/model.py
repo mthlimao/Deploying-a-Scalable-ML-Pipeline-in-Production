@@ -22,6 +22,8 @@ def train_model(X_train, y_train):
     rf_model = RandomForestClassifier()
     rf_model.fit(X_train, y_train)
 
+    return rf_model
+
 
 def compute_model_metrics(y, preds):
     """
