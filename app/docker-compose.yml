@@ -1,0 +1,18 @@
+x-app: &default-app
+  restart: always
+
+name: ml_api
+
+services:
+  ml_api_udacity:
+    <<: *default-app
+    build: 
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: ml_api
+    ports:
+      - 8000:8000
+    volumes:
+      - ./source:/source
+      - ./model:/model
+      - ./data:/data
