@@ -1,5 +1,6 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
+from source.ml.data import process_data
 
 
 # Optional: implement hyperparameter tuning.
@@ -61,6 +62,53 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
+
     preds = model.predict(X)
 
     return preds
+
+
+def check_performance_sliced_data(
+    data_sliced, 
+    model,
+    categorical_features, 
+    label,
+    encoder, 
+    lb,
+):
+    """
+    Checks model performance on sliced data.
+    
+    Inputs
+    ------
+    data_sliced: pd.DataFrame
+        Sliced data.
+    model : ???
+        Trained machine learning model.
+    categorical_features: list[str]
+        List containing the names of the categorical features (default=[])
+    label : str
+        Name of the label column in `X`. 
+    encoder : sklearn.preprocessing._encoders.OneHotEncoder
+        Trained sklearn OneHotEncoder, only used if training=False.
+    lb : sklearn.preprocessing._label.LabelBinarizer
+        Trained sklearn LabelBinarizer, only used if training=False.
+    Returns
+    -------
+    precision : float
+    recall : float
+    fbeta : float
+    """
+
+    # Get X and y slices
+    X_sliced, y_sliced, _, _ = process_data(
+        data_sliced, 
+        categorical_features=categorical_features, 
+        label=label,
+        encoder=encoder, lb=lb, training=False
+    )
+
+    # Get slices predictions
+    y_sliced_pred = inference(model, X_sliced)
+
+    return compute_model_metrics(y_sliced, y_sliced_pred)
