@@ -16,3 +16,4 @@ services:
       - ./source:/source
       - ./model:/model
       - ./data:/data
+      - ./main.py:/main.py
