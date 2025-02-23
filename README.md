@@ -1,3 +1,7 @@
+Github repository link: https://github.com/mthlimao/Deploying-a-Scalable-ML-Pipeline-in-Production
+
+Render Live API link: https://deploying-a-scalable-ml-pipeline-in-p4q6.onrender.com/
+
 Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
 
 # Environment Set up
